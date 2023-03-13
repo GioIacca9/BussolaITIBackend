@@ -4,6 +4,6 @@ import { EdgeController } from './edge.controller';
 
 @Module({
   controllers: [EdgeController],
-  providers: [EdgeService]
+  providers: [EdgeService],
 })
 export class EdgeModule {}

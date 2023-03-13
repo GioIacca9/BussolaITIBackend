@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { EdgeService } from './edge.service';
 import { CreateEdgeDto } from './dto/create-edge.dto';
 import { UpdateEdgeDto } from './dto/update-edge.dto';

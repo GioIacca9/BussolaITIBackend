@@ -1,3 +1,3 @@
 export class CreateEdgeDto {
-	peso: number;
+  peso: number;
 }
