@@ -1,26 +1,30 @@
 import { Injectable } from '@nestjs/common';
+import { Vertex } from 'src/vertex/entities/vertex.entity';
 import { CreateEdgeDto } from './dto/create-edge.dto';
 import { UpdateEdgeDto } from './dto/update-edge.dto';
+import { Edge } from './entities/edge.entity';
 
 @Injectable()
 export class EdgeService {
+  // I seguenti metodi restituiscono valori fittizi a scopo di test
+
   create(createEdgeDto: CreateEdgeDto) {
-    return 'This action adds a new edge';
+    return;
   }
 
   findAll() {
-    return `This action returns all edge`;
+    return [new Edge(1, 7, 10), new Edge(2, 1, 8)];
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} edge`;
+    return new Edge(6, 4, 2);
   }
 
   update(id: number, updateEdgeDto: UpdateEdgeDto) {
-    return `This action updates a #${id} edge`;
+    return new Edge(5, 14, 7);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} edge`;
+    return;
   }
 }
