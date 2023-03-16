@@ -33,7 +33,7 @@ async function bootstrap() {
   // Configurazione della documentazione per l'API
   const config = new DocumentBuilder()
     .setTitle(projectName)
-    .setDescription(`L\'API del progetto "${projectName}"`)
+    .setDescription(`L'API del progetto "${projectName}"`)
     .setVersion('0.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
