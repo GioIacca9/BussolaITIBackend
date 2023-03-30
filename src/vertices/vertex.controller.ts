@@ -12,7 +12,7 @@ import { CreateVertexDto } from './dto/create-vertex.dto';
 import { UpdateVertexDto } from './dto/update-vertex.dto';
 import { ApiNotFoundResponse, ApiTags } from '@nestjs/swagger';
 
-@Controller('vertex')
+@Controller('maps/:id/vertices')
 @ApiTags('Vertici') // Categoria per la documentazione
 export class VertexController {
   constructor(private readonly vertexService: VertexService) {}

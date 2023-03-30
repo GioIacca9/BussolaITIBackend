@@ -1,9 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { MapService } from './map.service';
 import { CreateMapDto } from './dto/create-map.dto';
 import { UpdateMapDto } from './dto/update-map.dto';
+import { ApiTags } from '@nestjs/swagger';
 
-@Controller('map')
+@Controller('maps')
+@ApiTags('Mappa') // Categoria per la documentazione
 export class MapController {
   constructor(private readonly mapService: MapService) {}
 

@@ -1,9 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { RouteService } from './route.service';
 import { CreateRouteDto } from './dto/create-route.dto';
 import { UpdateRouteDto } from './dto/update-route.dto';
+import { ApiTags } from '@nestjs/swagger';
 
-@Controller('route')
+@Controller('maps/:id/routes')
+@ApiTags('Itinerario') // Categoria per la documentazione
 export class RouteController {
   constructor(private readonly routeService: RouteService) {}
 

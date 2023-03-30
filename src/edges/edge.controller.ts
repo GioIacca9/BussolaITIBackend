@@ -12,7 +12,7 @@ import { CreateEdgeDto } from './dto/create-edge.dto';
 import { UpdateEdgeDto } from './dto/update-edge.dto';
 import { ApiTags } from '@nestjs/swagger';
 
-@Controller('edge')
+@Controller('maps/:id/edges')
 @ApiTags('Archi') // Categoria per la documentazione
 export class EdgeController {
   constructor(private readonly edgeService: EdgeService) {}

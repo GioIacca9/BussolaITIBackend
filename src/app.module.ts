@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { EdgeModule } from './edge/edge.module';
-import { VertexModule } from './vertex/vertex.module';
-import { RouteModule } from './route/route.module';
-import { MapModule } from './map/map.module';
+import { EdgeModule } from './edges/edge.module';
+import { VertexModule } from './vertices/vertex.module';
+import { RouteModule } from './routes/route.module';
+import { MapModule } from './maps/map.module';
 
 @Module({
-  imports: [EdgeModule, VertexModule, RouteModule, MapModule],
+  imports: [MapModule, EdgeModule, VertexModule, RouteModule],
   controllers: [AppController],
   providers: [AppService],
 })
