@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { Vertex } from 'src/vertices/entities/vertex.entity';
 import { CreateEdgeDto } from './dto/create-edge.dto';
 import { UpdateEdgeDto } from './dto/update-edge.dto';
 import { Edge } from './entities/edge.entity';
