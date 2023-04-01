@@ -39,8 +39,8 @@ export class MapController {
   }
 
   @Put(':id')
-  replace(@Param('id') id: string, @Body() updateMapDto: UpdateMapDto) {
-    return this.mapService.replace(id, updateMapDto);
+  replace(@Param('id') id: string, @Body() createMapDto: CreateMapDto) {
+    return this.mapService.replace(id, createMapDto);
   }
 
   @Delete(':id')

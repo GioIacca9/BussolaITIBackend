@@ -1,10 +1,16 @@
+import { IsNotEmpty } from 'class-validator';
+
 export class Vertex {
-  id: number;
+  @IsNotEmpty()
+  id: string;
+  @IsNotEmpty()
   x: number;
+  @IsNotEmpty()
   y: number;
+  @IsNotEmpty()
   floor: number;
 
-  constructor(id: number, x: number, y: number, floor: number) {
+  constructor(id: string, x: number, y: number, floor: number) {
     this.id = id;
     this.x = x;
     this.y = y;

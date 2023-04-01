@@ -31,7 +31,7 @@ export class MapService {
 
   async create(createMapDto: CreateMapDto) {
     this.data.push(new Map(createMapDto.name));
-    this.writeSaveFile(this.data);
+    this.writeSaveFile();
   }
 
   async findAll(): Promise<Map[]> {
@@ -54,19 +54,19 @@ export class MapService {
     });
     if (index != -1) {
       this.data[index] = { ...this.data[index], ...updateMapDto }; // "Unisco" i due oggetti, vedi "JS Object Spread"
-      this.writeSaveFile(this.data);
+      this.writeSaveFile();
       return;
     }
     throw new HttpException(MapService.notFoundError, HttpStatus.NOT_FOUND);
   }
 
-  async replace(id: string, updateMapDto: UpdateMapDto) {
+  async replace(id: string, createMapDto: CreateMapDto) {
     let index = (await this.findAll()).findIndex((map: Map) => {
       return map.id == id;
     });
     if (index != -1) {
-      this.data[index] = new Map(updateMapDto.name);
-      this.writeSaveFile(this.data);
+      this.data[index] = new Map(createMapDto.name);
+      this.writeSaveFile();
       return;
     }
     throw new HttpException(MapService.notFoundError, HttpStatus.NOT_FOUND);
@@ -78,15 +78,15 @@ export class MapService {
     });
     if (index != -1) {
       this.data.splice(index, 1);
-      this.writeSaveFile(this.data);
+      this.writeSaveFile();
       return;
     }
     throw new HttpException(MapService.notFoundError, HttpStatus.NOT_FOUND);
   }
 
-  writeSaveFile(data: Map[]) {
+  writeSaveFile() {
     try {
-      writeFile('./data.json', JSON.stringify(data));
+      writeFile('./data.json', JSON.stringify(this.data));
     } catch (err) {
       console.error(err);
     }

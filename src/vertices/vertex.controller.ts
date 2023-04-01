@@ -11,8 +11,9 @@ import { VertexService } from './vertex.service';
 import { CreateVertexDto } from './dto/create-vertex.dto';
 import { UpdateVertexDto } from './dto/update-vertex.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { Map } from 'src/maps/entities/map.entity';
 
-@Controller('maps/:id/vertices')
+@Controller('maps/:mapId/vertices')
 @ApiTags('Vertici') // Categoria per la documentazione
 export class VertexController {
   constructor(private readonly vertexService: VertexService) {}
@@ -23,8 +24,11 @@ export class VertexController {
    * @returns Niente
    */
   @Post()
-  create(@Body() createVertexDto: CreateVertexDto) {
-    return this.vertexService.create(createVertexDto);
+  create(
+    @Param('mapId') mapId: string,
+    @Body() createVertexDto: CreateVertexDto
+  ) {
+    return this.vertexService.create(mapId, createVertexDto);
   }
 
   /**
@@ -32,8 +36,8 @@ export class VertexController {
    * @returns Un'array contentente tutti i vertici
    */
   @Get()
-  findAll() {
-    return this.vertexService.findAll();
+  findAll(@Param('mapId') mapId: string) {
+    return this.vertexService.findAll(mapId);
   }
 
   /**
@@ -42,8 +46,8 @@ export class VertexController {
    * @returns L'oggeto vertice
    */
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.vertexService.findOne(+id);
+  findOne(@Param('id') id: string, @Param('mapId') mapId: string) {
+    return this.vertexService.findOne(id, mapId);
   }
 
   /**
@@ -53,8 +57,27 @@ export class VertexController {
    * @returns L'oggetto vertice aggiornato
    */
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateVertexDto: UpdateVertexDto) {
-    return this.vertexService.update(+id, updateVertexDto);
+  update(
+    @Param('id') id: string,
+    @Param('mapId') mapId: string,
+    @Body() updateVertexDto: UpdateVertexDto
+  ) {
+    return this.vertexService.update(id, mapId, updateVertexDto);
+  }
+
+  /**
+   * Rimpiazza un vertice e ritorna la nuova versione
+   * @param id L'ID del vertice
+   * @param updateVertexDto L'oggetto vertice (parziale) con i nuovi dati
+   * @returns L'oggetto vertice aggiornato
+   */
+  @Patch(':id')
+  replace(
+    @Param('id') id: string,
+    @Param('mapId') mapId: string,
+    @Body() createVertexDto: CreateVertexDto
+  ) {
+    return this.vertexService.replace(id, mapId, createVertexDto);
   }
 
   /**
@@ -63,7 +86,7 @@ export class VertexController {
    * @returns Niente
    */
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.vertexService.remove(+id);
+  remove(@Param('id') id: string, @Param('mapId') mapId: string) {
+    return this.vertexService.remove(id, mapId);
   }
 }
