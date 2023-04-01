@@ -1,3 +1,6 @@
-import { Map } from '../entities/map.entity';
+import { IsNotEmpty } from 'class-validator';
 
-export class CreateMapDto extends Map {}
+export class CreateMapDto {
+  @IsNotEmpty()
+  name: string;
+}

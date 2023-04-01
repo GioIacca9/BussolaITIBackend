@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { MapService } from './map.service';
 import { CreateMapDto } from './dto/create-map.dto';
@@ -35,6 +36,11 @@ export class MapController {
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateMapDto: UpdateMapDto) {
     return this.mapService.update(id, updateMapDto);
+  }
+
+  @Put(':id')
+  replace(@Param('id') id: string, @Body() updateMapDto: UpdateMapDto) {
+    return this.mapService.replace(id, updateMapDto);
   }
 
   @Delete(':id')

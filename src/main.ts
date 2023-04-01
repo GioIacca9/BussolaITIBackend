@@ -3,30 +3,10 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 import { readFile, writeFile } from 'node:fs';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const projectName = 'Bussola ITI'; // Nota: provvisiorio
-
-  // Legge il file contenente i dati
-  readFile('./data.json', 'utf8', (err, data) => {
-    if (err) {
-      if (err.code == 'ENOENT') {
-        console.log(
-          'Il file "data.json" non è stato trovato, verrà creato alla radice del progetto'
-        );
-        writeFile('./data.json', '{}', (err) => {
-          if (err) {
-            console.error(err);
-            return;
-          }
-        });
-        return;
-      }
-      console.error(err);
-      return;
-    }
-    console.log(`Dati caricati correttamente:\n${data}`);
-  });
 
   const app = await NestFactory.create(AppModule);
 
@@ -40,6 +20,14 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document, {
     customSiteTitle: `${projectName} - API`,
   });
+
+  // Rimozione dei parametri presenti nelle richieste, ma non nel DTO
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    })
+  );
 
   await app.listen(3000);
 }
