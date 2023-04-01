@@ -5,8 +5,6 @@ import { Edge } from './entities/edge.entity';
 
 @Injectable()
 export class EdgeService {
-  // I seguenti metodi restituiscono valori fittizi a scopo di test
-
   create(createEdgeDto: CreateEdgeDto) {
     return;
   }

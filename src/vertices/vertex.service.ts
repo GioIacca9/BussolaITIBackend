@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { MapService } from 'src/maps/map.service';
 import { CreateVertexDto } from './dto/create-vertex.dto';
 import { UpdateVertexDto } from './dto/update-vertex.dto';
 import { Vertex } from './entities/vertex.entity';
 
 @Injectable()
 export class VertexService {
-  // I seguenti metodi restituiscono valori fittizi a scopo di test
+  constructor(private mapService: MapService) {}
 
   create(createVertexDto: CreateVertexDto) {
     return;
