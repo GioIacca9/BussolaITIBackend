@@ -5,7 +5,7 @@ import { Vertex } from 'src/vertices/entities/vertex.entity';
 
 export class Map {
   name: string;
-  id: string = randomUUID();
+  id: string;
   edges: Edge[];
   vertices: Vertex[];
   calculatedRoutes: Route[];

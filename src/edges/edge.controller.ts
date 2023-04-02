@@ -12,7 +12,7 @@ import { CreateEdgeDto } from './dto/create-edge.dto';
 import { UpdateEdgeDto } from './dto/update-edge.dto';
 import { ApiTags } from '@nestjs/swagger';
 
-@Controller('maps/:id/edges')
+@Controller('maps/:mapId/edges')
 @ApiTags('Archi') // Categoria per la documentazione
 export class EdgeController {
   constructor(private readonly edgeService: EdgeService) {}
@@ -23,8 +23,8 @@ export class EdgeController {
    * @returns Niente
    */
   @Post()
-  create(@Body() createEdgeDto: CreateEdgeDto) {
-    return this.edgeService.create(createEdgeDto);
+  create(@Param('mapId') mapId: string, @Body() createEdgeDto: CreateEdgeDto) {
+    return this.edgeService.create(mapId, createEdgeDto);
   }
 
   /**
@@ -32,8 +32,8 @@ export class EdgeController {
    * @returns Un'array contentente tutti gli archi
    */
   @Get()
-  findAll() {
-    return this.edgeService.findAll();
+  findAll(@Param('mapId') mapId: string) {
+    return this.edgeService.findAll(mapId);
   }
 
   /**
@@ -42,8 +42,8 @@ export class EdgeController {
    * @returns L'oggeto arco
    */
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.edgeService.findOne(+id);
+  findOne(@Param('mapId') mapId: string, @Param('id') id: string) {
+    return this.edgeService.findOne(id, mapId);
   }
 
   /**
@@ -53,8 +53,12 @@ export class EdgeController {
    * @returns L'oggetto arco aggiornato
    */
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEdgeDto: UpdateEdgeDto) {
-    return this.edgeService.update(+id, updateEdgeDto);
+  update(
+    @Param('id') id: string,
+    @Param('mapId') mapId: string,
+    @Body() updateEdgeDto: UpdateEdgeDto
+  ) {
+    return this.edgeService.update(id, mapId, updateEdgeDto);
   }
 
   /**
@@ -63,7 +67,7 @@ export class EdgeController {
    * @returns Niente
    */
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.edgeService.remove(+id);
+  remove(@Param('id') id: string, @Param('mapId') mapId: string) {
+    return this.edgeService.remove(id, mapId);
   }
 }
