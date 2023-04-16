@@ -10,15 +10,29 @@ export class VertexService {
   constructor(private mapService: MapService) {}
 
   static notFoundError: string = 'Il vertice richiesto non è stato trovato';
+  static alreadyExistsError: string =
+    'Esiste già un vertice con lo stesso identificativo';
 
   async create(mapId: string, createVertexDto: CreateVertexDto) {
-    // TODO: Implementare controllo sull'univocità degli ID
+    if (await this.exists(createVertexDto.id, mapId)) {
+      throw new Error(VertexService.alreadyExistsError);
+    }
     (await this.mapService.findOne(mapId)).vertices.push(createVertexDto);
     this.mapService.writeSaveFile();
   }
 
   async findAll(mapId: string) {
     return (await this.mapService.findOne(mapId)).vertices;
+  }
+
+  async exists(id: string, mapId: string) {
+    try {
+      await this.findOne(id, mapId);
+      return true;
+    } catch (_e) {
+      // Viene lanciata un'HttpException se il vertice non esiste
+      return false;
+    }
   }
 
   async findOne(id: string, mapId: string) {
