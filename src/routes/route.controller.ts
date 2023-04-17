@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { RouteService } from './route.service';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -22,6 +14,6 @@ export class RouteController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.routeService.findOne(+id);
+    return this.routeService.findOne(id);
   }
 }
