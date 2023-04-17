@@ -1,9 +1,5 @@
 import { Vertex } from 'src/vertices/entities/vertex.entity';
 
-export class Route {
+export type Route = {
   vertices: Vertex[];
-
-  constructor(vertices: Vertex[]) {
-    this.vertices = vertices;
-  }
-}
+};
