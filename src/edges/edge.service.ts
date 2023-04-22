@@ -9,7 +9,7 @@ import { Map } from 'src/maps/entities/map.entity';
 export class EdgeService {
   constructor(private mapService: MapService) {}
 
-  static notFoundError: string = "L'arco richiesto non è stato trovato";
+  private static notFoundError: string = "L'arco richiesto non è stato trovato";
 
   async create(mapId: string, createEdgeDto: CreateEdgeDto) {
     (await this.mapService.findOne(mapId)).edges.push(createEdgeDto);
