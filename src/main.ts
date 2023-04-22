@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
-import { readFile, writeFile } from 'node:fs';
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {

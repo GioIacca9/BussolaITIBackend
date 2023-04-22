@@ -25,7 +25,7 @@ export class MapService {
     }
   }
 
-  private data: Map[];
+  data: Map[];
 
   static notFoundError: string = 'La mappa richiesta non è stata trovata';
 
