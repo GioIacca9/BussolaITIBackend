@@ -1,10 +1,4 @@
-import {
-  IsInt,
-  IsMACAddress,
-  IsNotEmpty,
-  IsNumber,
-  IsString,
-} from 'class-validator';
+import { IsMACAddress, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { randomUUID } from 'node:crypto';
 
 export class Edge {
