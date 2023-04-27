@@ -1,4 +1,10 @@
-import { IsInt, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsInt,
+  IsMACAddress,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+} from 'class-validator';
 import { randomUUID } from 'node:crypto';
 
 export class Edge {
@@ -6,11 +12,11 @@ export class Edge {
   @IsString()
   id: string;
   @IsNotEmpty()
-  @IsInt()
-  startVertexId: number;
+  @IsMACAddress()
+  startVertexId: string;
   @IsNotEmpty()
-  @IsInt()
-  endVertexId: number;
+  @IsMACAddress()
+  endVertexId: string;
   @IsNotEmpty()
   @IsNumber({
     allowInfinity: false,
@@ -18,7 +24,7 @@ export class Edge {
   })
   weight: number;
 
-  constructor(startVertexId: number, endVertexId: number, weight: number) {
+  constructor(startVertexId: string, endVertexId: string, weight: number) {
     this.id = randomUUID();
     this.startVertexId = startVertexId;
     this.endVertexId = endVertexId;
