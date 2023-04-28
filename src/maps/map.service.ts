@@ -30,8 +30,10 @@ export class MapService {
   static notFoundError: string = 'La mappa richiesta non è stata trovata';
 
   async create(createMapDto: CreateMapDto) {
-    this.data.push(new Map(createMapDto.name));
+    let map: Map = new Map(createMapDto.name);
+    this.data.push(map);
     this.writeSaveFile();
+    return map.id;
   }
 
   async findAll(): Promise<Map[]> {
