@@ -1,3 +1,13 @@
-import { Vertex } from '../entities/vertex.entity';
+import { IsNotEmpty, IsNumber, IsInt } from 'class-validator';
 
-export class CreateVertexDto extends Vertex {}
+export class CreateVertexDto {
+  @IsNotEmpty()
+  @IsNumber()
+  x: number;
+  @IsNotEmpty()
+  @IsNumber()
+  y: number;
+  @IsNotEmpty()
+  @IsInt()
+  floor: number;
+}

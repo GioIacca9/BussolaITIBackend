@@ -1,26 +1,12 @@
-import {
-  IsInt,
-  IsMACAddress,
-  IsNotEmpty,
-  IsNumber,
-  IsString,
-} from 'class-validator';
+import { IsInt, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class Vertex {
-  @IsNotEmpty()
-  @IsMACAddress()
-  id: string;
-  @IsNotEmpty()
-  @IsNumber()
+  id: number;
   x: number;
-  @IsNotEmpty()
-  @IsNumber()
   y: number;
-  @IsNotEmpty()
-  @IsInt()
   floor: number;
 
-  constructor(id: string, x: number, y: number, floor: number) {
+  constructor(id: number, x: number, y: number, floor: number) {
     this.id = id;
     this.x = x;
     this.y = y;

@@ -12,25 +12,16 @@ export class RouteService {
   findAll(): Route[] {
     return [
       {
-        vertices: [
-          new Vertex('testMacAddress', 20, 40, 2),
-          new Vertex('testMacAddress', 50, 30, 2),
-        ],
+        vertices: [new Vertex(1, 20, 40, 2), new Vertex(0, 50, 30, 2)],
       },
       {
-        vertices: [
-          new Vertex('testMacAddress', 25, 40, 4),
-          new Vertex('testMacAddress', 14, 48, 0),
-        ],
+        vertices: [new Vertex(240, 25, 40, 4), new Vertex(10, 14, 48, 0)],
       },
     ];
   }
 
   findOne(id: string) {
-    return [
-      new Vertex('testMacAddress', 25, 40, 4),
-      new Vertex('testMacAddress', 14, 48, 0),
-    ];
+    return [new Vertex(44, 25, 40, 4), new Vertex(55, 14, 48, 0)];
   }
 
   remove(id: string) {

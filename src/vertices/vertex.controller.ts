@@ -13,7 +13,6 @@ import { VertexService } from './vertex.service';
 import { CreateVertexDto } from './dto/create-vertex.dto';
 import { UpdateVertexDto } from './dto/update-vertex.dto';
 import { ApiTags } from '@nestjs/swagger';
-import { Map } from 'src/maps/entities/map.entity';
 
 @Controller('maps/:mapId/vertices')
 @ApiTags('Vertici') // Categoria per la documentazione
@@ -56,7 +55,7 @@ export class VertexController {
    * @returns L'oggeto vertice
    */
   @Get(':id')
-  findOne(@Param('id') id: string, @Param('mapId') mapId: string) {
+  findOne(@Param('id') id: number, @Param('mapId') mapId: string) {
     return this.vertexService.findOne(id, mapId);
   }
 
@@ -68,7 +67,7 @@ export class VertexController {
    */
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Param('mapId') mapId: string,
     @Body() updateVertexDto: UpdateVertexDto
   ) {
@@ -83,7 +82,7 @@ export class VertexController {
    */
   @Patch(':id')
   replace(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Param('mapId') mapId: string,
     @Body() createVertexDto: CreateVertexDto
   ) {
@@ -96,7 +95,7 @@ export class VertexController {
    * @returns Niente
    */
   @Delete(':id')
-  remove(@Param('id') id: string, @Param('mapId') mapId: string) {
+  remove(@Param('id') id: number, @Param('mapId') mapId: string) {
     return this.vertexService.remove(id, mapId);
   }
 }

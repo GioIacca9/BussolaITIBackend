@@ -14,18 +14,27 @@ export class VertexService {
     'Esiste già un vertice con lo stesso identificativo';
 
   async create(mapId: string, createVertexDto: CreateVertexDto) {
-    if (await this.exists(createVertexDto.id, mapId)) {
-      throw new Error(VertexService.alreadyExistsError);
+    let id: number;
+    try {
+      id = (await this.mapService.findOne(mapId)).vertices.at(-1).id + 1;
+    } catch (_e) {
+      id = 0; // Se arriviamo qua significa che l'array di vertici è vuoto
     }
-    (await this.mapService.findOne(mapId)).vertices.push(createVertexDto);
+
+    (await this.mapService.findOne(mapId)).vertices.push({
+      ...createVertexDto,
+      id,
+    });
     this.mapService.writeSaveFile();
+
+    return id;
   }
 
   async findAll(mapId: string) {
     return (await this.mapService.findOne(mapId)).vertices;
   }
 
-  async exists(id: string, mapId: string) {
+  async exists(id: number, mapId: string) {
     try {
       await this.findOne(id, mapId);
       return true;
@@ -35,7 +44,7 @@ export class VertexService {
     }
   }
 
-  async findOne(id: string, mapId: string) {
+  async findOne(id: number, mapId: string) {
     let vertices = (await this.mapService.findOne(mapId)).vertices;
     let vertex = vertices.find((vertex: Vertex) => {
       return vertex.id == id;
@@ -49,7 +58,7 @@ export class VertexService {
     return vertex;
   }
 
-  async update(id: string, mapId: string, updateVertexDto: UpdateVertexDto) {
+  async update(id: number, mapId: string, updateVertexDto: UpdateVertexDto) {
     let mapIndex = (await this.mapService.findAll()).findIndex((map: Map) => {
       return map.id == mapId;
     });
@@ -64,14 +73,14 @@ export class VertexService {
       this.mapService.data[mapIndex].vertices[index] = {
         ...this.mapService.data[mapIndex].vertices[index],
         ...updateVertexDto,
-      }; // "Unisco" i due oggetti, vedi "JS Object Spread"
+      };
       this.mapService.writeSaveFile();
       return;
     }
     throw new HttpException(VertexService.notFoundError, HttpStatus.NOT_FOUND);
   }
 
-  async replace(id: string, mapId: string, createVertexDto: CreateVertexDto) {
+  async replace(id: number, mapId: string, createVertexDto: CreateVertexDto) {
     let mapIndex = (await this.mapService.findAll()).findIndex((map: Map) => {
       return map.id == mapId;
     });
@@ -83,14 +92,17 @@ export class VertexService {
       return vertex.id == id;
     });
     if (index != -1) {
-      this.mapService.data[mapIndex].vertices[index] = createVertexDto;
+      this.mapService.data[mapIndex].vertices[index] = {
+        ...createVertexDto,
+        id: this.mapService.data[mapIndex].vertices[index].id,
+      };
       this.mapService.writeSaveFile();
       return;
     }
     throw new HttpException(VertexService.notFoundError, HttpStatus.NOT_FOUND);
   }
 
-  async remove(id: string, mapId: string) {
+  async remove(id: number, mapId: string) {
     let mapIndex = (await this.mapService.findAll()).findIndex((map: Map) => {
       return map.id == mapId;
     });
