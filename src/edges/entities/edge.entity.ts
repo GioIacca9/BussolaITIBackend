@@ -1,4 +1,10 @@
-import { IsMACAddress, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsInt,
+  IsMACAddress,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+} from 'class-validator';
 import { randomUUID } from 'node:crypto';
 import { Vertex } from 'src/vertices/entities/vertex.entity';
 
@@ -7,10 +13,10 @@ export class Edge {
   @IsString()
   id: string;
   @IsNotEmpty()
-  @IsMACAddress()
+  @IsInt()
   startVertexId: number;
   @IsNotEmpty()
-  @IsMACAddress()
+  @IsInt()
   endVertexId: number;
   @IsNotEmpty()
   @IsNumber({
