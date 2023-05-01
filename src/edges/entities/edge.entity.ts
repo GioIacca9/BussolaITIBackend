@@ -1,5 +1,6 @@
 import { IsMACAddress, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { randomUUID } from 'node:crypto';
+import { Vertex } from 'src/vertices/entities/vertex.entity';
 
 export class Edge {
   @IsNotEmpty()
@@ -7,10 +8,10 @@ export class Edge {
   id: string;
   @IsNotEmpty()
   @IsMACAddress()
-  startVertexId: string;
+  startVertexId: number;
   @IsNotEmpty()
   @IsMACAddress()
-  endVertexId: string;
+  endVertexId: number;
   @IsNotEmpty()
   @IsNumber({
     allowInfinity: false,
@@ -18,7 +19,7 @@ export class Edge {
   })
   weight: number;
 
-  constructor(startVertexId: string, endVertexId: string, weight: number) {
+  constructor(startVertexId: number, endVertexId: number, weight: number) {
     this.id = randomUUID();
     this.startVertexId = startVertexId;
     this.endVertexId = endVertexId;
