@@ -14,6 +14,7 @@ export class EdgeService {
   async create(mapId: string, createEdgeDto: CreateEdgeDto) {
     (await this.mapService.findOne(mapId)).edges.push(createEdgeDto);
     this.mapService.writeSaveFile();
+    return createEdgeDto.id;
   }
 
   async findAll(mapId: string) {
