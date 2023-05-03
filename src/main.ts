@@ -16,8 +16,10 @@ async function bootstrap() {
     .setVersion('0.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document, {
+  SwaggerModule.setup('docs', app, document, {
     customSiteTitle: `${projectName} - API`,
+    customCss: `.swagger-ui .topbar { display: none }`, // Rimozione della barra col branding Swagger/OpenAPI
+    customfavIcon: "https://segatobrustolon.edu.it/images/logoSegato.png", // Impostazione del logo della scuola come icona del sito della documentazione
   });
 
   // Rimozione dei parametri presenti nelle richieste, ma non nel DTO
