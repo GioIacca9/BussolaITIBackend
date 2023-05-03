@@ -1,6 +1,7 @@
 # Progetto "Bussola" dell'ITIS G. Segato di Belluno
 
 ## Esecuzione
+
 ```
 $ npm i
 $ npm run start:dev
