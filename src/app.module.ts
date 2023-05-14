@@ -8,18 +8,22 @@ import { MapModule } from './maps/map.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [MapModule, EdgeModule, VertexModule, RouteModule, TypeOrmModule.forRoot({
-    type: 'mysql',
-    host: 'localhost',
-    port: 3306,
-    username: 'root',
-    database: 'bussola',
-    entities: [],
-    synchronize: true,
-  }),
+  imports: [
+    MapModule,
+    EdgeModule,
+    VertexModule,
+    RouteModule,
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      database: 'bussola',
+      entities: [],
+      synchronize: true,
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-
-export class AppModule { }
+export class AppModule {}
