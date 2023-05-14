@@ -2,6 +2,10 @@
 
 ## Esecuzione
 
+> Nota:
+> È necessario configurare un database chiamato "bussola" su MySQL accessibile sulla macchina alla porta 3306
+> (per ora senza autenticazione)
+
 ```
 $ npm i
 $ npm run start:dev
