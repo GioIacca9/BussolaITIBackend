@@ -6,6 +6,8 @@ import { VertexModule } from './vertices/vertex.module';
 import { RouteModule } from './routes/route.module';
 import { MapModule } from './maps/map.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
+import { Vertex } from './vertices/entities/vertex.entity';
 
 @Module({
   imports: [
@@ -19,11 +21,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       port: 3306,
       username: 'root',
       database: 'bussola',
-      entities: [],
+      entities: [Vertex],
       synchronize: true,
+      autoLoadEntities: true,
     }),
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  constructor() {}
+}

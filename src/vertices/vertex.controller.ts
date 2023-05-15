@@ -8,6 +8,7 @@ import {
   Delete,
   HttpException,
   HttpStatus,
+  Put,
 } from '@nestjs/common';
 import { VertexService } from './vertex.service';
 import { CreateVertexDto } from './dto/create-vertex.dto';
@@ -29,15 +30,7 @@ export class VertexController {
     @Param('mapId') mapId: string,
     @Body() createVertexDto: CreateVertexDto
   ) {
-    try {
-      return await this.vertexService.create(mapId, createVertexDto);
-    } catch (e) {
-      // Se esiste già un vertice con lo stesso id rispondo con "409 Conflict"
-      throw new HttpException(
-        VertexService.alreadyExistsError,
-        HttpStatus.CONFLICT
-      );
-    }
+    return await this.vertexService.create(mapId, createVertexDto);
   }
 
   /**
@@ -46,7 +39,7 @@ export class VertexController {
    */
   @Get()
   findAll(@Param('mapId') mapId: string) {
-    return this.vertexService.findAll(mapId);
+    return this.vertexService.findAll();
   }
 
   /**
@@ -80,7 +73,7 @@ export class VertexController {
    * @param updateVertexDto L'oggetto vertice (parziale) con i nuovi dati
    * @returns L'oggetto vertice aggiornato
    */
-  @Patch(':id')
+  @Put(':id')
   replace(
     @Param('id') id: number,
     @Param('mapId') mapId: string,
