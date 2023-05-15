@@ -63,7 +63,7 @@ export class EdgeController {
 
   /**
    * Rimuove un arco specifico
-   * @param id L'ID del arci
+   * @param id L'ID del archi
    * @returns Niente
    */
   @Delete(':id')
