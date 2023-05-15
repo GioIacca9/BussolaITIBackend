@@ -1,14 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { CreateRouteDto } from './dto/create-route.dto';
 import { Vertex } from 'src/vertices/entities/vertex.entity';
 import { Route } from './entities/route.entity';
 
 @Injectable()
 export class RouteService {
-  create(createRouteDto: CreateRouteDto) {
-    return 'This action adds a new route';
-  }
-
   findAll(): Route[] {
     return [
       {
