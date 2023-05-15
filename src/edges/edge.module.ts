@@ -9,5 +9,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   controllers: [EdgeController],
   providers: [EdgeService],
   imports: [MapModule, TypeOrmModule.forFeature([Edge])],
+  exports: [TypeOrmModule],
 })
 export class EdgeModule {}
