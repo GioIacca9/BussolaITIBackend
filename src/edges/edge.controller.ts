@@ -42,7 +42,7 @@ export class EdgeController {
    * @returns L'oggeto arco
    */
   @Get(':id')
-  findOne(@Param('mapId') mapId: string, @Param('id') id: string) {
+  findOne(@Param('mapId') mapId: string, @Param('id') id: number) {
     return this.edgeService.findOne(id, mapId);
   }
 
@@ -54,7 +54,7 @@ export class EdgeController {
    */
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Param('mapId') mapId: string,
     @Body() updateEdgeDto: UpdateEdgeDto
   ) {
@@ -67,7 +67,7 @@ export class EdgeController {
    * @returns Niente
    */
   @Delete(':id')
-  remove(@Param('id') id: string, @Param('mapId') mapId: string) {
+  remove(@Param('id') id: number, @Param('mapId') mapId: string) {
     return this.edgeService.remove(id, mapId);
   }
 }

@@ -6,8 +6,8 @@ import { VertexModule } from './vertices/vertex.module';
 import { RouteModule } from './routes/route.module';
 import { MapModule } from './maps/map.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DataSource } from 'typeorm';
 import { Vertex } from './vertices/entities/vertex.entity';
+import { Edge } from './edges/entities/edge.entity';
 
 @Module({
   imports: [
@@ -21,7 +21,7 @@ import { Vertex } from './vertices/entities/vertex.entity';
       port: 3306,
       username: 'root',
       database: 'bussola',
-      entities: [Vertex],
+      entities: [Vertex, Edge],
       synchronize: true,
       autoLoadEntities: true,
     }),
