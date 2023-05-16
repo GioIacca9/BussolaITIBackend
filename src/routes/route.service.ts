@@ -16,7 +16,7 @@ export class RouteService {
   }
 
   findOne(id: string) {
-    return [new Vertex(44, 25, 40), new Vertex(55, 14, 48)];
+    return { vertices: [new Vertex(44, 25, 40), new Vertex(55, 14, 48)] };
   }
 
   remove(id: string) {
