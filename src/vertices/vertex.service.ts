@@ -29,12 +29,12 @@ export class VertexService {
   }
 
   async findOne(id: number, mapId: string) {
-    return await this.vertexRepository.findOneBy({ id });
+    return await this.vertexRepository.findOneByOrFail({ id });
   }
 
   async update(id: number, mapId: string, updateVertexDto: UpdateVertexDto) {
     // eseguendo vertexRepository.update non viene controllato se l'entità esiste già, quindi lo facciamo «manualmente» prima
-    let entityToRemove = await this.vertexRepository.findOneBy({ id });
+    let entityToRemove = await this.vertexRepository.findOneByOrFail({ id });
     if (!entityToRemove) {
       // Se entityToRemove è nullo allora vuol dire che l'elemento all'id specificato non esiste ancora
       throw new HttpException(
@@ -50,7 +50,7 @@ export class VertexService {
   }
 
   async replace(id: number, mapId: string, createVertexDto: CreateVertexDto) {
-    let entityToRemove = await this.vertexRepository.findOneBy({ id });
+    let entityToRemove = await this.vertexRepository.findOneByOrFail({ id });
     if (!entityToRemove) {
       // Se entityToRemove è nullo allora vuol dire che l'elemento all'id specificato non esiste ancora
       throw new HttpException(
@@ -79,7 +79,7 @@ export class VertexService {
   }
 
   async remove(id: number, mapId: string) {
-    let entityToRemove = await this.vertexRepository.findOneBy({ id });
+    let entityToRemove = await this.vertexRepository.findOneByOrFail({ id });
     if (!entityToRemove) {
       // Se entityToRemove è nullo allora vuol dire che l'elemento all'id specificato non esiste ancora
       throw new HttpException(

@@ -33,12 +33,12 @@ export class EdgeService {
   }
 
   async findOne(id: number, mapId: string) {
-    return await this.edgeRepository.findOneBy({ id });
+    return await this.edgeRepository.findOneByOrFail({ id });
   }
 
   async update(id: number, mapId: string, updateEdgeDto: UpdateEdgeDto) {
     // eseguendo edgeRepository.update non viene controllato se l'entità esiste già, quindi lo facciamo «manualmente» prima
-    let entityToRemove = await this.edgeRepository.findOneBy({ id });
+    let entityToRemove = await this.edgeRepository.findOneByOrFail({ id });
     if (!entityToRemove) {
       // Se entityToRemove è nullo allora vuol dire che l'elemento all'id specificato non esiste ancora
       throw new HttpException(EdgeService.notFoundError, HttpStatus.NOT_FOUND);
@@ -55,7 +55,7 @@ export class EdgeService {
   }
 
   async replace(id: number, mapId: string, createEdgeDto: CreateEdgeDto) {
-    let entityToRemove = await this.edgeRepository.findOneBy({ id });
+    let entityToRemove = await this.edgeRepository.findOneByOrFail({ id });
     if (!entityToRemove) {
       // Se entityToRemove è nullo allora vuol dire che l'elemento all'id specificato non esiste ancora
       throw new HttpException(EdgeService.notFoundError, HttpStatus.NOT_FOUND);
@@ -81,7 +81,7 @@ export class EdgeService {
   }
 
   async remove(id: number, mapId: string) {
-    let entityToRemove = await this.edgeRepository.findOneBy({ id });
+    let entityToRemove = await this.edgeRepository.findOneByOrFail({ id });
     if (!entityToRemove) {
       // Se entityToRemove è nullo allora vuol dire che l'elemento all'id specificato non esiste ancora
       throw new HttpException(EdgeService.notFoundError, HttpStatus.NOT_FOUND);
