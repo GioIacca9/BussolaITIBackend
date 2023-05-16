@@ -9,5 +9,6 @@ import { Vertex } from './entities/vertex.entity';
   imports: [MapModule, TypeOrmModule.forFeature([Vertex])],
   providers: [VertexService],
   controllers: [VertexController],
+  exports: [TypeOrmModule],
 })
 export class VertexModule {}

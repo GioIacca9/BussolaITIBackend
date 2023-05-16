@@ -12,12 +12,15 @@ export class RouteController {
   constructor(private readonly routeService: RouteService) {}
 
   @Get()
-  findAll(): Route[] {
-    return this.routeService.findAll();
+  async findAll(): Promise<Route[]> {
+    return await this.routeService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string): Route {
-    return this.routeService.findOne(id);
+  @Get(':startVertexId/:endVertexId')
+  async findOne(
+    @Param('startVertexId') startVertexId: number,
+    @Param('endVertexId') endVertexId: number
+  ): Promise<Route> {
+    return await this.routeService.findOne(startVertexId, endVertexId);
   }
 }
