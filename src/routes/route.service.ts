@@ -1,9 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { Vertex } from 'src/vertices/entities/vertex.entity';
 import { Route } from './entities/route.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Edge } from 'src/edges/entities/edge.entity';
 
 @Injectable()
 export class RouteService {
+  constructor(
+    @InjectRepository(Edge) private edgeRepository: Repository<Edge>
+  ) {}
+
   findAll(): Route[] {
     return [
       {

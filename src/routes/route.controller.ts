@@ -9,10 +9,7 @@ import { Route } from './entities/route.entity';
 @Controller('maps/:id/routes')
 @ApiTags('Itinerario') // Categoria per la documentazione
 export class RouteController {
-  constructor(
-    private readonly routeService: RouteService,
-    @InjectRepository(Edge) private edgeRepository: Repository<Edge>
-  ) {}
+  constructor(private readonly routeService: RouteService) {}
 
   @Get()
   findAll(): Route[] {
