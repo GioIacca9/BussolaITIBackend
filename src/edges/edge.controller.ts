@@ -11,6 +11,8 @@ import { EdgeService } from './edge.service';
 import { CreateEdgeDto } from './dto/create-edge.dto';
 import { UpdateEdgeDto } from './dto/update-edge.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { Edge } from './entities/edge.entity';
+import { Vertex } from 'src/vertices/entities/vertex.entity';
 
 @Controller('maps/:mapId/edges')
 @ApiTags('Archi') // Categoria per la documentazione
@@ -20,11 +22,14 @@ export class EdgeController {
   /**
    * Crea un nuovo arco
    * @param createVertexDto L'oggetto arco
-   * @returns Niente
+   * @returns L'ID dell'arco appena creato
    */
   @Post()
-  create(@Param('mapId') mapId: string, @Body() createEdgeDto: CreateEdgeDto) {
-    return this.edgeService.create(mapId, createEdgeDto);
+  async create(
+    @Param('mapId') mapId: string,
+    @Body() createEdgeDto: CreateEdgeDto
+  ): Promise<number> {
+    return await this.edgeService.create(mapId, createEdgeDto);
   }
 
   /**
@@ -32,25 +37,28 @@ export class EdgeController {
    * @returns Un'array contentente tutti gli archi
    */
   @Get()
-  findAll(@Param('mapId') mapId: string) {
-    return this.edgeService.findAll(mapId);
+  async findAll(@Param('mapId') mapId: string): Promise<Edge[]> {
+    return await this.edgeService.findAll(mapId);
   }
 
   /**
    * Trova un arco specifico
    * @param id L'ID dell'arco
-   * @returns L'oggeto arco
+   * @returns L'oggeto arco richiesto
    */
   @Get(':id')
-  findOne(@Param('mapId') mapId: string, @Param('id') id: number) {
-    return this.edgeService.findOne(id, mapId);
+  async findOne(
+    @Param('mapId') mapId: string,
+    @Param('id') id: number
+  ): Promise<Edge> {
+    return await this.edgeService.findOne(id, mapId);
   }
 
   /**
    * Aggiorna un arco e ritorna la nuova versione
    * @param id L'ID dell'arco
    * @param updateVertexDto L'oggetto arco (parziale) con i nuovi dati
-   * @returns L'oggetto arco aggiornato
+   * @returns Niente
    */
   @Patch(':id')
   update(

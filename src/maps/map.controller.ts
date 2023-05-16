@@ -12,25 +12,31 @@ import { MapService } from './map.service';
 import { CreateMapDto } from './dto/create-map.dto';
 import { UpdateMapDto } from './dto/update-map.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { Map } from './entities/map.entity';
 
 @Controller('maps')
 @ApiTags('Mappa') // Categoria per la documentazione
 export class MapController {
   constructor(private readonly mapService: MapService) {}
 
+  /**
+   * Crea una nuova mappa
+   * @param createMapDto Mappa da creare
+   * @returns L'ID della mappa
+   */
   @Post()
-  create(@Body() createMapDto: CreateMapDto) {
-    return this.mapService.create(createMapDto);
+  async create(@Body() createMapDto: CreateMapDto): Promise<string> {
+    return await this.mapService.create(createMapDto);
   }
 
   @Get()
-  findAll() {
-    return this.mapService.findAll();
+  async findAll(): Promise<Map[]> {
+    return await this.mapService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.mapService.findOne(id);
+  async findOne(@Param('id') id: string): Promise<Map> {
+    return await this.mapService.findOne(id);
   }
 
   @Patch(':id')
