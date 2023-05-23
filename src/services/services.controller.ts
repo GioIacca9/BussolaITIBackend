@@ -1,12 +1,27 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ServicesService } from './services.service';
 import { CreateServiceDto } from './dto/create-service.dto';
 import { UpdateServiceDto } from './dto/update-service.dto';
+import { ApiTags } from '@nestjs/swagger';
 
-@Controller('services')
+@Controller('maps/:mapId/services')
+@ApiTags('Servizi')
 export class ServicesController {
   constructor(private readonly servicesService: ServicesService) {}
 
+  /**
+   * Crea un nuovo servizio
+   * @param createServiceDto Servizio da creare
+   * @returns L'ID del servizio creato
+   */
   @Post()
   create(@Body() createServiceDto: CreateServiceDto) {
     return this.servicesService.create(createServiceDto);

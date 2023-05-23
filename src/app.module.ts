@@ -21,6 +21,7 @@ import { ServicesModule } from './services/services.module';
       host: 'localhost',
       port: 3306,
       username: 'root',
+      password: process.env['DB_PWD'],
       database: 'bussola',
       entities: [Vertex, Edge],
       synchronize: true,

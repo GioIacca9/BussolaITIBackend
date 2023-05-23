@@ -6,30 +6,88 @@ import { Vertex } from './entities/vertex.entity';
 import { Map } from 'src/maps/entities/map.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
+import { Service } from 'src/services/entities/service.entity';
 
 @Injectable()
 export class VertexService {
   constructor(
     private mapService: MapService,
-    @InjectRepository(Vertex) private vertexRepository: Repository<Vertex>
+    @InjectRepository(Vertex) private vertexRepository: Repository<Vertex>,
+    @InjectRepository(Service) private servicesRepository: Repository<Service>
   ) {}
 
   static notFoundError: string = 'Il vertice richiesto non è stato trovato';
+  static serviceNotFoundError: string =
+    'Il servizio menzionato non è stato trovato';
 
   async create(mapId: string, createVertexDto: CreateVertexDto) {
+    let services: Service[] = [];
+    try {
+      for (let serviceId of createVertexDto.services) {
+        services.push(
+          await this.servicesRepository.findOneByOrFail({ id: serviceId })
+        );
+      }
+    } catch (e) {
+      return new HttpException(
+        VertexService.serviceNotFoundError,
+        HttpStatus.BAD_REQUEST
+      );
+    }
+
     let newlyCreatedVertex = await this.vertexRepository.save(
-      new Vertex(createVertexDto.x, createVertexDto.y, createVertexDto.floor)
+      new Vertex(
+        createVertexDto.x,
+        createVertexDto.y,
+        createVertexDto.floor,
+        undefined,
+        services
+      )
     );
 
     return newlyCreatedVertex.id;
   }
 
   async findAll() {
-    return await this.vertexRepository.find();
+    return await this.vertexRepository.find({
+      relations: {
+        services: true,
+      },
+    });
   }
 
   async findOne(id: number, mapId: string) {
     return await this.vertexRepository.findOneByOrFail({ id });
+  }
+
+  async findByService(serviceId: number, mapId: string) {
+    let requestedService: Service;
+    try {
+      requestedService = await this.servicesRepository.findOneByOrFail({
+        id: serviceId,
+      });
+    } catch (e) {
+      return new HttpException(
+        VertexService.serviceNotFoundError,
+        HttpStatus.BAD_REQUEST
+      );
+    }
+
+    let vertices: Vertex[] = await this.vertexRepository.find({
+      relations: {
+        services: true,
+      },
+    });
+    let serviceProviders: Vertex[] = [];
+    for (const vertex of vertices) {
+      for (const service of vertex.services) {
+        if (JSON.stringify(service) == JSON.stringify(requestedService)) {
+          serviceProviders.push(vertex);
+        }
+      }
+    }
+
+    return serviceProviders;
   }
 
   async update(id: number, mapId: string, updateVertexDto: UpdateVertexDto) {

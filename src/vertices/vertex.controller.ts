@@ -53,6 +53,16 @@ export class VertexController {
   }
 
   /**
+   * Trova tutti i vertici che offrono un servizio
+   * @param id L'ID del servzio
+   * @returns Un array contenente i vertici
+   */
+  @Get('/services/:id')
+  findByService(@Param('id') id: number, @Param('mapId') mapId: string) {
+    return this.vertexService.findByService(id, mapId);
+  }
+
+  /**
    * Aggiorna un vertice e ritorna la nuova versione
    * @param id L'ID del vertice
    * @param updateVertexDto L'oggetto vertice (parziale) con i nuovi dati

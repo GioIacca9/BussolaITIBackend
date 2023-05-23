@@ -1,26 +1,57 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateServiceDto } from './dto/create-service.dto';
 import { UpdateServiceDto } from './dto/update-service.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Service } from './entities/service.entity';
 
 @Injectable()
 export class ServicesService {
-  create(createServiceDto: CreateServiceDto) {
-    return 'This action adds a new service';
+  constructor(
+    @InjectRepository(Service) private servicesRepository: Repository<Service>
+  ) {}
+
+  static notFoundError: string = 'Il servizio richiesto non è stato trovato';
+
+  async create(createServiceDto: CreateServiceDto) {
+    return (await this.servicesRepository.save(createServiceDto)).id;
   }
 
-  findAll() {
-    return `This action returns all services`;
+  async findAll() {
+    return await this.servicesRepository.find({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} service`;
+  async findOne(id: number) {
+    return await this.servicesRepository.findOneByOrFail({ id });
   }
 
-  update(id: number, updateServiceDto: UpdateServiceDto) {
-    return `This action updates a #${id} service`;
+  async update(id: number, updateServiceDto: UpdateServiceDto) {
+    // eseguendo servicesRepository.update non viene controllato se l'entità esiste già, quindi lo facciamo «manualmente» prima
+    let entityToRemove = await this.servicesRepository.findOneByOrFail({ id });
+    if (!entityToRemove) {
+      // Se entityToRemove è nullo allora vuol dire che l'elemento all'id specificato non esiste ancora
+      throw new HttpException(
+        ServicesService.notFoundError,
+        HttpStatus.NOT_FOUND
+      );
+    }
+
+    this.servicesRepository.update({ id }, updateServiceDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} service`;
+  async remove(id: number) {
+    // eseguendo servicesRepository.update non viene controllato se l'entità esiste già, quindi lo facciamo «manualmente» prima
+    let entityToRemove = await this.servicesRepository.findOneByOrFail({ id });
+    if (!entityToRemove) {
+      // Se entityToRemove è nullo allora vuol dire che l'elemento all'id specificato non esiste ancora
+      throw new HttpException(
+        ServicesService.notFoundError,
+        HttpStatus.NOT_FOUND
+      );
+    }
+
+    this.servicesRepository.remove(
+      await this.servicesRepository.findOneBy({ id })
+    );
   }
 }

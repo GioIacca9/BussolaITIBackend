@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsNumber, IsInt } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsInt,
+  IsArray,
+  IsOptional,
+} from 'class-validator';
 
 export class CreateVertexDto {
   @IsNotEmpty()
@@ -10,4 +16,6 @@ export class CreateVertexDto {
   @IsNotEmpty()
   @IsInt()
   floor: number;
+  @IsArray()
+  services: number[];
 }
