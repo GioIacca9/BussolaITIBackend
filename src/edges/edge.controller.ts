@@ -12,7 +12,6 @@ import { CreateEdgeDto } from './dto/create-edge.dto';
 import { UpdateEdgeDto } from './dto/update-edge.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { Edge } from './entities/edge.entity';
-import { Vertex } from 'src/vertices/entities/vertex.entity';
 
 @Controller('maps/:mapId/edges')
 @ApiTags('Archi') // Categoria per la documentazione
