@@ -4,7 +4,7 @@
 
 > Nota:
 > È necessario configurare un database chiamato "bussola" su MySQL accessibile sulla macchina alla porta 3306
-> (per ora senza autenticazione)
+> La password del database va specificata nella variabile d'ambiente DB_PWD
 
 ```
 $ npm i
