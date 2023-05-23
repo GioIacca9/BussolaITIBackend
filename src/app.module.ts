@@ -8,6 +8,7 @@ import { MapModule } from './maps/map.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Vertex } from './vertices/entities/vertex.entity';
 import { Edge } from './edges/entities/edge.entity';
+import { ServicesModule } from './services/services.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { Edge } from './edges/entities/edge.entity';
       synchronize: true,
       autoLoadEntities: true,
     }),
+    ServicesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
