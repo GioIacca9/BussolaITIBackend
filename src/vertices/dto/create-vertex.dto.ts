@@ -18,4 +18,7 @@ export class CreateVertexDto {
   floor: number;
   @IsArray()
   services: number[];
+  @IsOptional()
+  @IsNumber()
+  id?: number;
 }

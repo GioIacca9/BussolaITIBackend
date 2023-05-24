@@ -40,7 +40,7 @@ export class VertexService {
         createVertexDto.x,
         createVertexDto.y,
         createVertexDto.floor,
-        undefined,
+        createVertexDto.id, // TODO: Evitare di sovrascrivere vertici se viene specificato un ID, per quello bisognerebbe usare un PUT
         services
       )
     );
