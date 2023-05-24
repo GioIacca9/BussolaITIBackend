@@ -18,9 +18,16 @@ export class RouteController {
 
   @Get(':startVertexId/:endVertexId')
   async findOne(
-    @Param('startVertexId') startVertexId: number,
-    @Param('endVertexId') endVertexId: number
+    @Param('startVertexId') startVertexId: string,
+    @Param('endVertexId') endVertexId: string
   ): Promise<Route> {
     return await this.routeService.findOne(startVertexId, endVertexId);
+  }
+
+  @Get(':startVertexId/services/:serviceId') async findByService(
+    @Param('startVertexId') startVertexId: number,
+    @Param('serviceId') serviceId: number
+  ): Promise<Route> {
+    return await this.routeService.findByService(startVertexId, serviceId);
   }
 }
